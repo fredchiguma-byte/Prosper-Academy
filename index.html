@@ -1,0 +1,190 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Prosper Academy — Home</title>
+  <style>
+    :root{--accent:#0ea5a3;--muted:#6b7280}
+    body{font-family:Inter,ui-sans-serif,system-ui,-apple-system,Segoe UI,Roboto,"Helvetica Neue",Arial; margin:0; color:#0f172a}
+    header{background:linear-gradient(90deg,#06b6d4, #3b82f6); color:white; padding:28px}
+    .container{max-width:1100px;margin:0 auto;padding:24px}
+    nav{display:flex;gap:18px;align-items:center}
+    nav a{color:white;text-decoration:none;font-weight:600}
+    .hero{display:flex;gap:24px;align-items:center;justify-content:space-between}
+    .card{background:#fff;border-radius:12px;padding:18px;box-shadow:0 6px 18px rgba(15,23,42,0.08)}
+    .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:18px}
+    footer{padding:24px;text-align:center;color:var(--muted)}
+    .btn{background:var(--accent);color:white;border:none;padding:10px 14px;border-radius:10px;cursor:pointer;font-weight:700}
+    .small{font-size:0.9rem;color:var(--muted)}
+
+    /* Payments */
+    .pay-wrap{max-width:540px}
+    label{display:block;margin-top:10px;font-weight:600}
+    input[type=text], input[type=number], select{width:100%;padding:10px;margin-top:6px;border:1px solid #e6e9ef;border-radius:8px}
+
+    /* Responsive */
+    @media (max-width:720px){.hero{flex-direction:column;align-items:flex-start}}
+  </style>
+</head>
+<body>
+  <header>
+    <div class="container">
+      <nav>
+        <div style="font-weight:800;font-size:20px">Prosper Academy</div>
+        <div style="flex:1"></div>
+        <a href="#home">Home</a>
+        <a href="#about">About</a>
+        <a href="#admissions">Admissions</a>
+        <a href="#fees">Fees & Payments</a>
+        <a href="#contact">Contact</a>
+        <button class="btn" onclick="openLogin()" style="margin-left:12px">Login / Sign up</button>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container" id="home">
+    <section class="hero" style="margin-top:22px">
+      <div style="max-width:620px">
+        <h1 style="margin:0">Welcome to Prosper Academy</h1>
+        <p class="small">A caring school focused on strong academics, character development and digital readiness.</p>
+        <div style="margin-top:14px">
+          <a href="#admissions" class="btn">Apply Now</a>
+        </div>
+      </div>
+      <div class="card" style="width:320px">
+        <h3 style="margin:0">Quick links</h3>
+        <ul class="small">
+          <li>School calendar</li>
+          <li>Exam results (student portal)</li>
+          <li>Fees & Payments</li>
+        </ul>
+      </div>
+    </section>
+
+    <section id="about" style="margin-top:26px">
+      <h2>About Us</h2>
+      <div class="card">
+        <p class="small">Prosper Academy provides quality primary and secondary education with a modern curriculum and practical skills training.</p>
+      </div>
+    </section>
+
+    <section id="admissions" style="margin-top:26px">
+      <h2>Admissions</h2>
+      <div class="card grid">
+        <div>
+          <h3>How to apply</h3>
+          <p class="small">Complete the online application form and pay the application fee using Airtel Money.</p>
+          <a class="btn" href="#fees">Pay Application Fee</a>
+        </div>
+        <div>
+          <h3>Requirements</h3>
+          <p class="small">Birth certificate, previous school report, passport photo.</p>
+        </div>
+      </div>
+    </section>
+
+    <section id="fees" style="margin-top:26px">
+      <h2>Fees & Payments</h2>
+      <div class="card grid">
+        <div>
+          <h3>School Fees (Sample)</h3>
+          <ul class="small">
+            <li>Termly tuition: MWK 60,000</li>
+            <li>Registration (new students): MWK 5,000</li>
+            <li>Exam fees: MWK 4,000</li>
+          </ul>
+        </div>
+
+        <div class="pay-wrap">
+          <h3>Pay with Airtel Money</h3>
+          <p class="small">Enter payment details below. This page includes a ready-to-use client-side flow that posts a payment request to your server which then calls Airtel/merchant API (server-side required).</p>
+
+          <div id="payResult" class="small" style="margin-bottom:8px"></div>
+
+          <label>Student Name</label>
+          <input id="studentName" type="text" placeholder="John Banda" />
+
+          <label>Amount (MWK)</label>
+          <input id="amount" type="number" value="60000" />
+
+          <label>Payer Mobile (Airtel number)</label>
+          <input id="msisdn" type="text" placeholder="+26588xxxxxxx" />
+
+          <button class="btn" style="margin-top:10px" onclick="startAirtelPayment()">Pay with Airtel Money</button>
+
+          <p class="small" style="margin-top:12px">Notes: You will need a merchant account with Airtel or use a local payment gateway (e.g. PayChangu, Malipo, DPO) that supports Airtel Money in Malawi. Server-side code is required to securely store API credentials and sign requests.</p>
+        </div>
+      </div>
+    </section>
+
+    <section id="contact" style="margin-top:26px">
+      <h2>Contact</h2>
+      <div class="card">
+        <p class="small">Prosper Academy<br/>Lilongwe, Malawi<br/>Phone: 0996163222<br/>Email: fredchiguma@gmail.com</p>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container">
+      <p class="small">© Prosper Academy — Built with care</p>
+    </div>
+  </footer>
+
+  <script>
+    function openLogin(){ alert('Login / Sign up: placeholder (student portal not implemented)'); }
+
+    async function startAirtelPayment(){
+      const name = document.getElementById('studentName').value || 'Unknown';
+      const amount = Number(document.getElementById('amount').value) || 0;
+      const msisdn = document.getElementById('msisdn').value || '';
+      const out = document.getElementById('payResult');
+      out.textContent = 'Sending payment request...';
+
+      // Basic front-end validation
+      if(!msisdn || amount <= 0){ out.textContent = 'Please enter a valid phone number and amount.'; return; }
+
+      // This fetch hits your server which should call Airtel Money Collection API or gateway.
+      // Replace /api/airtel/collect with your server endpoint.
+      try{
+        const resp = await fetch('/api/airtel/collect', {
+          method: 'POST',
+          headers:{'Content-Type':'application/json'},
+          body: JSON.stringify({name, amount, msisdn, externalId: 'INV-'+Date.now()})
+        });
+        const j = await resp.json();
+        if(resp.ok){
+          out.textContent = 'Payment requested. Please follow the Airtel Money prompt on your phone to complete the payment.';
+        } else {
+          out.textContent = 'Payment failed: ' + (j.message || JSON.stringify(j));
+        }
+      }catch(e){
+        out.textContent = 'Network error: ' + e.message;
+      }
+    }
+
+    /*
+      --- SERVER-SIDE (example) ---
+      The server must hold your Airtel client_id / client_secret and call the Airtel Collection API.
+
+      Example (Node.js / Express pseudo-code):
+
+      const express = require('express');
+      const fetch = require('node-fetch');
+      const app = express();
+      app.use(express.json());
+
+      app.post('/api/airtel/collect', async (req,res)=>{
+        const {msisdn, amount, externalId} = req.body;
+        // 1) Get OAuth token from Airtel developer platform
+        // POST https://sandbox.airtel.africa/oauth/token with client_id/secret -> access_token
+        // 2) Call Collection API (USSD push / request to pay) with access_token and payload {msisdn, amount, externalId}
+        // 3) Return success/failure to client and implement webhook endpoint to receive final transaction status
+      });
+
+      Note: Direct integration requires merchant onboarding with Airtel (see their developer portal) or you can use a local gateway (PayChangu, Malipo, DPO) which may be faster to onboard. Store credentials securely (not in client-side code).
+    */
+  </script>
+</body>
+</html>
